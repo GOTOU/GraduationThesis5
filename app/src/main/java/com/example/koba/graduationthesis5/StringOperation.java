@@ -91,10 +91,9 @@ public class StringOperation {  //jsoupのscriptタグの中身を受け取り�
 
         final Pattern urlPattern = Pattern.compile(url_pattern, Pattern.CASE_INSENSITIVE);
         Matcher matcher = urlPattern.matcher(result);
-        result = matcher.replaceAll("hoge");
-
-        String temp = matcher.toString();
+        result = matcher.replaceAll("");
 */
+
         for (String item : list) {
             final Pattern urlPattern = Pattern.compile("(http://|https://){1}[\\w\\.\\-/:\\#\\?\\=\\&\\;\\%\\~\\+]+", Pattern.CASE_INSENSITIVE);
             Matcher matcher = urlPattern.matcher(result);
