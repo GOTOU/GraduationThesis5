@@ -6,17 +6,58 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by koba on 2017/01/11.
  */
-public class StringOperation {  //jsoupのscriptタグの中身を受け取り処理するクラス
-    String url;
+public class StringOperation {  //受け取ったhtmlやらjsをマッチングして削除するためのクラス
 
     public String removeAds(String str){ //scriptタグの中身のjavascriptの文字列中にあるURLを抽出、広告と思わしきURLの削除もしくはreplace
 //        Log.d("Debug", "str : "+str);
+
+
+        List<String> list = listString();
+        String result = str;
+
+
+        for (String item : list) {
+            final Pattern urlPattern = Pattern.compile("(http://|https://){1}[\\w\\.\\-/:\\#\\?\\=\\&\\;\\%\\~\\+]+", Pattern.CASE_INSENSITIVE);
+            Matcher matcher = urlPattern.matcher(result);
+            result = matcher.replaceAll("");
+
+        }
+
+
+//        Log.d("Debug", "result: "+result);
+        return result;
+    }
+
+
+    public boolean isMatchOrNot(String str){  //iframe,ins,aなどのタグを削除するためのメソッド
+
+        String urls = "(";
+
+        for (String url : listString()) {
+            urls = urls + url + "|";
+        }
+        String url_pattern = urls.substring(0, urls.length()-1);  //url_patternにはlistの全ての項目が入っている
+        url_pattern += ")";
+
+
+        final Pattern urlPattern = Pattern.compile(url_pattern, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = urlPattern.matcher(str);
+
+        if (matcher.find()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+
+    public List<String> listString(){  //リストのメソッド
         List<String> list = Arrays.asList(
                 "premium.2ch.net",
                 "microad.jp",
@@ -74,37 +115,14 @@ public class StringOperation {  //jsoupのscriptタグの中身を受け取り�
                 "stimg.iand2ch.net",
                 "stimgc.iand2ch.net",
                 "blogsys.jp",
-                "assys01.fc2.com"
+                "assys01.fc2.com",
+                "media.fc2.com/counter",
+                "i2ad.jp",
+                "img.bb-chat.tv"
 
 
         );
-
-        String result = str;
-/*
-        String urls = "(";
-
-        for (String url : list) {
-            urls = urls + url + "|";
-        }
-        String url_pattern = urls.substring(0, urls.length()-1);
-        url_pattern += ")";
-
-        final Pattern urlPattern = Pattern.compile(url_pattern, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = urlPattern.matcher(result);
-        result = matcher.replaceAll("");
-*/
-
-        for (String item : list) {
-            final Pattern urlPattern = Pattern.compile("(http://|https://){1}[\\w\\.\\-/:\\#\\?\\=\\&\\;\\%\\~\\+]+", Pattern.CASE_INSENSITIVE);
-            Matcher matcher = urlPattern.matcher(result);
-            result = matcher.replaceAll("");
-
-//            String temp = matcher.toString();
-        }
-
-
-        Log.d("Debug", "result: "+result);
-        return result;
+        return list;
     }
 
 }

@@ -74,10 +74,11 @@ class DownloadTask extends AsyncTask<Param, Integer, Param> {
             Elements zucks = body.getElementsByTag("img");
             Elements iframes = body.getElementsByTag("iframe");
 
-            for (Element script : scripts){
-                str = script.html();
+            for (Element script : scripts){  //jsの中身を整える
+                str = script.data();
+//                Log.d("Debug", "beforeScripts : "+str);
 
-                    StringOperation stringOperation = new StringOperation();
+                StringOperation stringOperation = new StringOperation();
                     String afterStr = stringOperation.removeAds(str);
                     script.html(afterStr);
 //                Log.d("Debug", "afterStr : "+script.html());
@@ -85,30 +86,12 @@ class DownloadTask extends AsyncTask<Param, Integer, Param> {
             }
 
             for (Element iframe : iframes){
-                String str1 = iframe.attr("src");
+                str = iframe.attr("src");
+//                Log.d("Debug", "src : "+str);
 
-            }
-
-
-
-            for(Element div : divs){
-//                String className = div.attr("class");
-                String className = div.className();
-//                Log.d("debug", "className: "+className);
-                String id = div.id();
-//                Log.d("debug", "id: "+id);
-
-
-                if(className.contains("amoad")){  //amoad広告
-                    div.remove();
-                }
-
-                if (id.contains("zucksad")){  //zucks広告
-                    div.remove();
-                }
-
-                if(id.contains("nend_adspace")){  //nend広告
-                    div.remove();
+                StringOperation stringOperation = new StringOperation();
+                if (stringOperation.isMatchOrNot(str)) {
+                    iframe.remove();
                 }
             }
 
@@ -120,25 +103,6 @@ class DownloadTask extends AsyncTask<Param, Integer, Param> {
                     google.remove();
                 }
             }
-
-            for(Element link : links){
-                String href= link.attr("href");
-
-                if(href.contains("i-mobile.co.jp")){
-                    link.remove();
-                }
-
-/*                if(href.contains("/images/bannar")){
-                link.remove();
-            }
-*/
-                if(href.contains("tapone")){ //tapone広告
-                    link.remove();
-                }
-
-            }
-
-
 
 
             param.htmlSource = document.html();
