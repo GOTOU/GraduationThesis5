@@ -37,8 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle(null);
+        setTitle(null); //ツールバーの表示をなくす
 
 
 
@@ -142,8 +141,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.filter:
-//                Intent filterSettings = new Intent(MainActivity.this, FilterSettings.class);
-//                startActivity(filterSettings);
+                Intent filterSettingsActivity = new Intent(MainActivity.this, FilterSettingsActivity.class);
+                startActivity(filterSettingsActivity);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -162,8 +161,6 @@ public class MainActivity extends AppCompatActivity {
         return false;
 
     }
-
-
 
 
 }

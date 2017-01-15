@@ -118,7 +118,12 @@ public class StringOperation {  //受け取ったhtmlやらjsをマッチング�
                 "assys01.fc2.com",
                 "media.fc2.com/counter",
                 "i2ad.jp",
-                "img.bb-chat.tv"
+                "img.bb-chat.tv",
+                "mediams.mb",
+                "rubiconproject.com",
+                "google-analytics.com",
+                "yads.c.yimg.jp"
+
 
 
         );

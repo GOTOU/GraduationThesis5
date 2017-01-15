@@ -66,6 +66,23 @@ class DownloadTask extends AsyncTask<Param, Integer, Param> {
             // ここでJsoup使ってDOMの編集を行う
             Document document = Jsoup.connect(param.url).userAgent(param.ua).get();
 
+            Element head = document.select("head").first();
+            Elements headScripts = head.getElementsByTag("script");
+            Elements headiframes = head.getElementsByTag("iframe");
+
+            for (Element headScript : headScripts){  //jsの中身を整える
+                str = headScript.data();
+//                Log.d("Debug", "beforeHeadScripts : "+str);
+
+                StringOperation stringOperation = new StringOperation();
+                String afterStr = stringOperation.removeAds(str);
+                headScript.html(afterStr);
+//                Log.d("Debug", "AfterHeadScripts : "+headScript.html());
+
+            }
+
+
+
             Element body = document.select("body").first();
             Elements links = body.getElementsByTag("a");  //aタグを取得
             Elements googles = body.getElementsByTag("ins");
@@ -76,7 +93,7 @@ class DownloadTask extends AsyncTask<Param, Integer, Param> {
 
             for (Element script : scripts){  //jsの中身を整える
                 str = script.data();
-//                Log.d("Debug", "beforeScripts : "+str);
+                Log.d("Debug", "beforeScripts : "+str);
 
                 StringOperation stringOperation = new StringOperation();
                     String afterStr = stringOperation.removeAds(str);
