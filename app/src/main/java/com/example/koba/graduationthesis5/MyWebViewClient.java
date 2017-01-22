@@ -93,7 +93,9 @@ class DownloadTask extends AsyncTask<Param, Integer, Param> {
 
             for (Element script : scripts){  //jsの中身を整える
                 str = script.data();
-                Log.d("Debug", "beforeScripts : "+str);
+//                Log.d("Debug", "beforeScripts : "+str);
+                String temp = str;
+//                Log.d("Debug", "scriptSrc : "+temp);
 
                 StringOperation stringOperation = new StringOperation();
                     String afterStr = stringOperation.removeAds(str);

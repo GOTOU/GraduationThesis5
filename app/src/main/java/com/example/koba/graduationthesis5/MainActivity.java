@@ -8,6 +8,7 @@ import android.support.v4.view.WindowCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.KeyEvent;
@@ -59,7 +60,14 @@ public class MainActivity extends AppCompatActivity {
                 return super.shouldOverrideUrlLoading(webView, url);
             }
         }*/);
-        myWebView.loadUrl("https://www.google.co.jp/");
+
+        if (savedInstanceState!=null){
+            myWebView.restoreState(savedInstanceState);
+            return;
+        } else {
+            myWebView.loadUrl("https://www.google.co.jp/");
+        }
+
 
         //JavaScriptの許可
         myWebView.getSettings().setJavaScriptEnabled(true);
@@ -69,6 +77,23 @@ public class MainActivity extends AppCompatActivity {
         settings.setSupportMultipleWindows(true);
         settings.setLoadsImagesAutomatically(true);
         settings.setLightTouchEnabled(true);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState){
+        Log.d("debug", "onSaveInstanceState");
+        super.onSaveInstanceState(outState);
+        myWebView.saveState(outState);
+    }
+
+    //TODO: onRestoreInstanceStateが発動してない
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState){
+        Log.d("debug", "onRestoreInstanceState");
+        if (savedInstanceState!=null){
+            myWebView.restoreState(savedInstanceState);
+        }
     }
 
     @Override
@@ -101,7 +126,12 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
-
+/*
+    @Override
+    protected void onViewStateRestored(Bundle outState){
+        myWebView.restoreState(savedI)
+    }
+*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {  //アクションバーのメニューの処理
         // Handle action bar item clicks here. The action bar will
