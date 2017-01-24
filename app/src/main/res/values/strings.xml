@@ -8,6 +8,7 @@
     <string name="reload">更新</string>
     <string name="filter">フィルタ設定</string>
     <string name="home">ホーム</string>
+    <string name="add">追加したいドメイン</string>
     <string name="title_activity_filter_settings">FilterSettings</string>
 
 </resources>

@@ -93,14 +93,19 @@ class DownloadTask extends AsyncTask<Param, Integer, Param> {
 
             for (Element script : scripts){  //jsの中身を整える
                 str = script.data();
-//                Log.d("Debug", "beforeScripts : "+str);
                 String temp = str;
-//                Log.d("Debug", "scriptSrc : "+temp);
+//                Log.d("Debug", "beforeScripts : "+str);
 
-                StringOperation stringOperation = new StringOperation();
+                if (temp.contains("function(d)")){
+                    script.remove();
+                } else if (temp.contains("LBInfeedAd.call_api")) {
+                    script.remove();
+                } else {
+                    StringOperation stringOperation = new StringOperation();
                     String afterStr = stringOperation.removeAds(str);
                     script.html(afterStr);
 //                Log.d("Debug", "afterStr : "+script.html());
+                }
 
             }
 

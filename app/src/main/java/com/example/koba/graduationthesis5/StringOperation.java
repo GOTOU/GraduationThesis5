@@ -13,11 +13,12 @@ import java.util.List;
  */
 public class StringOperation {  //受け取ったhtmlやらjsをマッチングして削除するためのクラス
 
+    ListStock listStock = new ListStock();
+
     public String removeAds(String str){ //scriptタグの中身のjavascriptの文字列中にあるURLを抽出、広告と思わしきURLの削除もしくはreplace
 //        Log.d("Debug", "str : "+str);
 
-
-        List<String> list = listString();
+        List<String> list = listStock.getList();
         String result = str;
 
 
@@ -38,7 +39,7 @@ public class StringOperation {  //受け取ったhtmlやらjsをマッチング�
 
         String urls = "(";
 
-        for (String url : listString()) {
+        for (String url : listStock.getList()) {
             urls = urls + url + "|";
         }
         String url_pattern = urls.substring(0, urls.length()-1);  //url_patternにはlistの全ての項目が入っている
@@ -56,79 +57,4 @@ public class StringOperation {  //受け取ったhtmlやらjsをマッチング�
 
     }
 
-
-    public List<String> listString(){  //リストのメソッド
-        List<String> list = Arrays.asList(
-                "premium.2ch.net",
-                "microad.jp",
-                "nend.net",
-                "amoad.com",
-                "adimg.net",
-                "adingo.jp",
-                "i-mobile.co.jp",
-                "doubleclick.net",
-                "spstaticimg.ameba.jp",
-                "akamai.net",
-                "ad-v.jp",
-                "image.click.livedoor.com",
-                "behaviad.net",
-                "medibaad.com",
-                "unthem.com",
-                "i2i.jp",
-                "iadsdk.apple.com",
-                "iadc.qwapi.com",
-                "ichi-ni-san.net",
-                "app-adforce.jp",
-                "kochava.com",
-                "socdm.com",
-                "adlantis.jp",
-                "a8.net",
-                "im.ov.yahoo.co.jp",
-                "yads.yahoo.co.jp",
-                "ads.yahoo.com",
-                "maist.jp",
-                "kau.li",
-                "advg.jp",
-                "zimg.jp",
-                "zucks.net",
-                "app-adfce.jp",
-                "ad-stir.com",
-                "mtburn.com",
-                "astrsk.net",
-                "ghnosy.com",
-                "maist.jp",
-                "iogous.com",
-                "trax-ad.jp",
-                "4clvr.jp",
-                "formulas.jp",
-                "iand2ch.net",
-                "-ad.jp",
-                "prism.pandora.tv",
-                "adms-ad.com",
-                "ad.gunosy.com",
-                "adjust.com",
-                "adtdp.com",
-                "caprofitx.com",
-                "conv.gunosy.com",
-                "logs.gunosy.com",
-                "platform.gunosy.com",
-                "stimg.iand2ch.net",
-                "stimgc.iand2ch.net",
-                "blogsys.jp",
-                "assys01.fc2.com",
-                "media.fc2.com/counter",
-                "i2ad.jp",
-                "img.bb-chat.tv",
-                "mediams.mb",
-                "rubiconproject.com",
-                "google-analytics.com",
-                "yads.c.yimg.jp"
-
-
-
-        );
-        return list;
-    }
-
 }
-
